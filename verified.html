@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification Successful</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1 id="message"></h1>
+
+<script>
+    const messages = {
+      tr: "Doğrulama başarılı! Giriş yapabilirsiniz.",
+      en: "Verification successful! You can now log in.",
+      ar: "تم التحقق بنجاح! يمكنك الآن تسجيل الدخول."
+    };
+
+    const lang = navigator.language.slice(0, 2);
+    document.getElementById("message").innerText = messages[lang] || messages.en;
+</script>
+</body>
+</html>

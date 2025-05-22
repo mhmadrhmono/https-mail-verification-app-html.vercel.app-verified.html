@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Doğrulama</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+<h1>Email doğrulama işlemi...</h1>
+<div id="message"></div>
+
+<script>
+    // Firebase config buraya
+    const firebaseConfig = {
+      apiKey: "AIzaSyBW0IbFaCf7J5lug9tuFmJdK0Ut5fP6RAc",
+      authDomain: "ahmet-jobapp.firebaseapp.com",
+      projectId: "ahmet-jobapp",
+    };
+
+    // Firebase başlat
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // URL parametrelerini al
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    const oobCode = urlParams.get('oobCode');
+
+    const messageDiv = document.getElementById('message');
+
+    if (mode === 'verifyEmail' && oobCode) {
+      auth.applyActionCode(oobCode).then(() => {
+        // Başarılı doğrulama
+        messageDiv.innerHTML = 'Doğrulama başarılı! Yönlendiriliyorsunuz...';
+        setTimeout(() => {
+          window.location.href = '/verified.html'; // Başarı sayfasına yönlendir
+        }, 3000);
+      }).catch((error) => {
+        messageDiv.innerHTML = 'Doğrulama başarısız: ' + error.message;
+      });
+    } else {
+      messageDiv.innerHTML = 'Geçersiz doğrulama isteği.';
+    }
+</script>
+</body>
+</html>
